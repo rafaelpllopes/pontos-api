@@ -14,6 +14,9 @@ class Database:
     @property
     def cursor(self):
         return self._conn.cursor()
+    
+    def destroy(self):
+        self._conn.close()
 
 
 if __name__ == "__main__":
