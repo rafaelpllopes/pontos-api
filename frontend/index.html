@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Consulta Pontos</title>
+</head>
+<body>
+    <h1>Consulta registros de ponto</h1>
+    <main>
+        <form>
+            <div class="parametros">
+                <label for="matricula">Matricula: </label>
+                <input type="text" placeholder="00000" id="matricula" oninput="isDigitoMatricula()">
+                <label for="nome">Nome: </label>
+                <input class="nome" type="text" id="nome" placeholder="digite o nome do profissional" oninput="isDigitoNome()">
+            </div>
+            <div class="parametros">
+                <label for="mes">Mês: </label>
+                <select id="mes">
+                    <option value="01">Janeiro</option>
+                    <option value="02">Fevereiro</option>
+                    <option value="03">Março</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Maio</option>
+                    <option value="06">Junho</option>
+                    <option value="07">Julho</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+                <label for="ano">Ano: </label>
+                <select id="ano"></select>
+            </div>
+            
+            <div class="busca">
+                <button onclick="pesquisar(event)">Pesquisar</button>
+                <button style="display: none;" onclick="pesquisarLocal()">Consultar por local</button>
+            </div>
+        </form>
+    </main>
+    <section>
+        <header>
+            Cabeçalho
+            nome e matricula
+            periodo
+        </header>
+        <div id="registros"></div>
+        <footer>
+            <div class="totais">
+                <p>
+                    Total de Dias: <span id="dias"></span>
+                    Total de Registros: <span id="registros"></span>
+                </p>
+            </div>
+            <div class="assinaturas">
+                <hr>
+                <p>Assinatura do Profissional</p>
+                <hr>
+                <p> Assinatura do Responsável</p>
+            </div>
+        </footer>
+    </section>
+        <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+h1{
+    text-transform: uppercase; 
+    text-align: center;
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  table,td, th{
+    border: 1px solid black;
+}
+
+  th{
+      text-align: center;
+      background-color: #e7e7e7;
+            
+  }
+
+td{
+    text-align: center;
+}
+
+
+.parametros {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 0.2em;
+}
+
+.busca {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 0.2em;
+}
+
+button {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0.5em;
+    height: 4em;
+    width: 12em;
+    background-color: #e7e7e7 ; color: black;
+    border: green 1px solid;
+    border-radius: 10%;
+}
+
+button:hover {
+    margin: 0.5em;
+    height: 4em;
+    width: 12em;
+    background-color: green ; color: black;
+    border: #e7e7e7 1px solid;
+    border-radius: 10%;
+    opacity: 80%;
+}
+
+label {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    margin-right:0.2em;
+    margin-left: 2em;
+    height:0.2em;   
+    font-weight: bold;
+    font-size: 15px;
+    text-align: justify;
+}
+
+.nome{
+    width: 50em;
+    text-align: justify;
+}
+
+input{
+    height: 2.5em;
+    text-align: justify;
+}
+
+
+header {
+    display: none;
+}
+
+.totais{
+    display: none;
+}
+
+hr{
+    margin: 40px 0;
+    width: 500px;
+}
+
+.assinaturas {
+    display: none;
+}
+
+#mes {
+    width: 15em;
+    height: 2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#ano {
+    width: 15em;
+    height: 2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+@media print{
+    h1 {
+        display: none;
+    }
+
+    .busca{
+        display: none;
+    }
+
+    .totais{
+        display: block;
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding: 0.2em;
+    }
+
+    .assinaturas {
+        display: inline;
+    }
+}
