@@ -29,18 +29,18 @@ def profissional_por_nome(nome):
 @app.route('/registros', methods=['GET'])
 def registro_matricula():
     
-    for arg in ['matricula', 'data_inicial', 'data_final']:
+    for arg in ['matricula', 'ano', 'mes']:
         if arg not in request.args:
             return jsonify({ "msg": "Erro é necessario a matricula e periodo" }), 404
     
     matricula = request.args['matricula']
-    data_inicial = request.args['data_inicial']
-    data_final = request.args['data_final']
+    mes = request.args['mes']
+    ano = request.args['ano']
     
-    if matricula == '' or data_inicial == '' or data_final == '':
+    if matricula == '' or mes == '' or ano == '':
         return jsonify({ "msg": "Erro é necessario a matricula e periodo" }), 404
 
-    return jsonify(registros_controller.find_registros_by_matricula_and_periodo(matricula, data_inicial, data_final)), 200
+    return jsonify(registros_controller.find_registros_by_matricula_and_periodo(matricula, mes, ano)), 200
 
 if __name__ == '__main__':
     pass

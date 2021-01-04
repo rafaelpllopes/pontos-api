@@ -34,51 +34,83 @@ class RegistrosController:
     def registros(self):
         return self._resgistros
     
-    def find_registros_by_matricula_and_periodo(self, matricula, data_inicial, data_final):
-        registros = []
-        resposta = self.registros.find_registros_by_matricula_and_periodo(matricula, data_inicial, data_final)
-       
-        dict_datas = {}
-
-        for item in resposta:
-            data = item['registro'].strftime('%Y-%m-%d')
-            if str(dict_datas.keys) not in str(data):
-                dict_datas[data] = []
-            
-        for key in dict_datas:
-            for dados in resposta:
-                data = dados['registro'].strftime('%Y-%m-%d')
-                if key == data:
-                    dict_datas[key].append(dados)
-                else:
-                    continue
+    def _ultimo_dia_mes(self, ano, mes):
+        meses_31_dias = ["01", "03", "05", "07", "08", "10", "12"]
         
-        for key in dict_datas.keys():
+        if mes == "02":
+            if ano % 4 == 0:
+                return "29"
+            else:
+                return "28"
+        elif mes in meses_31_dias:
+            return "31"
+        else:
+            return "30" 
+    
+    def find_registros_by_matricula_and_periodo(self, matricula, mes, ano):
+        DIAS = ['Segunda-feira',
+            'Terça-feira',
+            'Quarta-feira',
+            'Quinta-Feira',
+            'Sexta-feira',
+            'Sábado',
+            'Domingo']
+
+        registros = []
+        ultimo_dia = self._ultimo_dia_mes(ano, mes)
+        
+        resposta = self.registros.find_registros_by_matricula_and_periodo(matricula, mes, ano, ultimo_dia)
+        
+        for dia in range(int(ultimo_dia)):
+            dia += 1
+            registros.append({  "dia_semana": DIAS[datetime.strptime(f"{ano}-{mes}-{dia}", "%Y-%m-%d").weekday()], "data": f"{ano}-{mes}-{str(dia).zfill(2)}", "horas": [], "horas_trabalhadas": "" })
+       
+        for dados in resposta:
+           data = dados['registro'].strftime('%Y-%m-%d')
+           for reg in registros:
+               if data == reg["data"]:
+                   horas = dados['registro'].strftime('%H:%M')
+                   reg['horas'].append(horas)
+               else:
+                   continue       
+        
+        for reg in registros:
             total_horas = 0
-                        
-            if len(dict_datas[key]) == 2:
-                date1 = datetime.strptime(str(dict_datas[key][0]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date2 = datetime.strptime(str(dict_datas[key][1]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                total_horas = date2 - date1
+                                            
+            if len(reg["horas"]) == 2:
+                entrada_1 = datetime.strptime(reg["horas"][0], '%H:%M')
+                saida_1 = datetime.strptime(reg["horas"][1], '%H:%M')
+                total_horas = str(saida_1 - entrada_1)
                 
-            elif len(dict_datas[key]) == 4:
-                date1 = datetime.strptime(str(dict_datas[key][0]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date2 = datetime.strptime(str(dict_datas[key][1]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date3 = datetime.strptime(str(dict_datas[key][2]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date4 = datetime.strptime(str(dict_datas[key][3]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                total_horas = ((date2 - date1) + (date4 - date3))
+            elif len(reg["horas"]) == 4:
+                entrada_1 = datetime.strptime(reg['horas'][0], '%H:%M')
+                saida_1 = datetime.strptime(reg['horas'][1], '%H:%M')
+                entrada_2 = datetime.strptime(reg['horas'][2], '%H:%M')
+                saida_2 = datetime.strptime(reg['horas'][3], '%H:%M')
+                total_horas = str((saida_1 - entrada_1) + (saida_2 - entrada_2))
                 
-            elif len(dict_datas[key]) == 6:
-                date1 = datetime.strptime(str(dict_datas[key][0]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date2 = datetime.strptime(str(dict_datas[key][1]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date3 = datetime.strptime(str(dict_datas[key][2]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date4 = datetime.strptime(str(dict_datas[key][3]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date5 = datetime.strptime(str(dict_datas[key][4]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                date6 = datetime.strptime(str(dict_datas[key][5]['registro'].strftime('%y-%m-%d %H:%M:%S')), '%y-%m-%d %H:%M:%S')
-                total_horas = ((date2 - date1) + (date4 - date3) + (date6 - date5))
+            elif len(reg["horas"]) == 6:
+                entrada_1 = datetime.strptime(reg['horas'][0], '%H:%M')
+                saida_1 = datetime.strptime(reg['horas'][1], '%H:%M')
+                entrada_2 = datetime.strptime(reg['horas'][2], '%H:%M')
+                saida_2 = datetime.strptime(reg['horas'][3], '%H:%M')
+                entrada_3 = datetime.strptime(reg['horas'][4], '%H:%M')
+                saida_3 = datetime.strptime(reg['horas'][5], '%H:%M')
+                total_horas = str((saida_1 - entrada_1) + (saida_2 - entrada_2) + (saida_3 - entrada_3))
             
-            dict_datas[key].append({ 'total': f'{total_horas}' })
-        return dict_datas
+            reg['horas_trabalhadas'] = total_horas
+        
+        totais_registros = 0
+        dias_registrados = 0
+        
+        for reg in registros:
+            if len(reg['horas']) > 0:
+                totais_registros = len(reg['horas'])
+                dias_registrados += 1
+        
+        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados } })
+            
+        return registros
     
 if __name__ == '__main__':
     pass

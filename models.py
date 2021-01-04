@@ -54,10 +54,11 @@ class RegistrosModel:
     def __init__(self, db):
         self._db = db
     
-    def find_registros_by_matricula_and_periodo(self, matricula, data_inicial, data_final):        
+    def find_registros_by_matricula_and_periodo(self, matricula, mes, ano, ultimo_dia):                 
         sql = f"SELECT DISTINCT HE22_DT_REGISTRO AS registro, EXTRACT(DAY FROM HE22_DT_REGISTRO) AS dia, HE01_ST_DESC AS origem FROM HE22 \
             INNER JOIN HE01 ON HE01_AT_COD = HE22_NR_EQUIP WHERE HE22_ST_MATRICULA = '{matricula.zfill(20)}' \
-                AND HE22_DT_REGISTRO BETWEEN '{data_inicial} 00:00:00' AND '{data_final} 23:29:59' ORDER BY HE22_DT_REGISTRO"
+                AND HE22_DT_REGISTRO BETWEEN '{ano}-{mes}-01 00:00:00' AND '{ano}-{mes}-{ultimo_dia} 23:59:59' ORDER BY HE22_DT_REGISTRO"
+                
         dados = self._db.cursor.execute(sql)
         
         resultados = dados.fetchallmap()
@@ -65,10 +66,17 @@ class RegistrosModel:
         registros = []
         
         for resultado in resultados:
-            registros.append({ "registro": resultado['REGISTRO'], "dia": resultado['DIA'], "origem": resultado['ORIGEM'] })
+            registros.append({ "registro": resultado['REGISTRO'], "dia": str(resultado['DIA']).zfill(2), "origem": resultado['ORIGEM'] })
                 
         return registros
-        
-
+    
+    def total_registros_by_matricual_and_periodo(self, matricula, mes, ano, ultimo_dia):
+        sql = f"SELECT DISTINCT COUNT(HE22_DT_REGISTRO) AS total FROM HE22 \
+            WHERE HE22_ST_MATRICULA = '{matricula.zfill(20)}' \
+                AND HE22_DT_REGISTRO BETWEEN '{ano}-{mes}-01 00:00:00' AND '{ano}-{mes}-{ultimo_dia} 23:59:59'"
+        dado = self._db.cursor.execute(sql)
+        resultado = dado.fetchonemap()
+        return resultado['TOTAL']
+    
 if __name__ == "__main__":
     pass
