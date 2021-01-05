@@ -73,21 +73,21 @@ class RegistrosController:
                    reg['horas'].append(horas)
                else:
                    continue       
-        
+
         for reg in registros:
             total_horas = 0
                                             
             if len(reg["horas"]) == 2:
                 entrada_1 = datetime.strptime(reg["horas"][0], '%H:%M')
                 saida_1 = datetime.strptime(reg["horas"][1], '%H:%M')
-                total_horas = str(saida_1 - entrada_1)
+                total_horas = saida_1 - entrada_1
                 
             elif len(reg["horas"]) == 4:
                 entrada_1 = datetime.strptime(reg['horas'][0], '%H:%M')
                 saida_1 = datetime.strptime(reg['horas'][1], '%H:%M')
                 entrada_2 = datetime.strptime(reg['horas'][2], '%H:%M')
                 saida_2 = datetime.strptime(reg['horas'][3], '%H:%M')
-                total_horas = str((saida_1 - entrada_1) + (saida_2 - entrada_2))
+                total_horas = (saida_1 - entrada_1) + (saida_2 - entrada_2)
                 
             elif len(reg["horas"]) == 6:
                 entrada_1 = datetime.strptime(reg['horas'][0], '%H:%M')
@@ -96,16 +96,16 @@ class RegistrosController:
                 saida_2 = datetime.strptime(reg['horas'][3], '%H:%M')
                 entrada_3 = datetime.strptime(reg['horas'][4], '%H:%M')
                 saida_3 = datetime.strptime(reg['horas'][5], '%H:%M')
-                total_horas = str((saida_1 - entrada_1) + (saida_2 - entrada_2) + (saida_3 - entrada_3))
+                total_horas = (saida_1 - entrada_1) + (saida_2 - entrada_2) + (saida_3 - entrada_3)
             
-            reg['horas_trabalhadas'] = total_horas
+            reg['horas_trabalhadas'] = str(total_horas)
         
         totais_registros = 0
         dias_registrados = 0
-        
+
         for reg in registros:
             if len(reg['horas']) > 0:
-                totais_registros = len(reg['horas'])
+                totais_registros += len(reg['horas'])
                 dias_registrados += 1
         
         registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados } })
