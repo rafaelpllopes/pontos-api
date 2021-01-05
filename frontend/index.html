@@ -14,7 +14,7 @@
                 <label for="matricula">Matricula: </label>
                 <input type="text" placeholder="00000" id="matricula" oninput="isDigitoMatricula()">
                 <label for="nome">Nome: </label>
-                <input class="nome" type="text" id="nome" placeholder="digite o nome do profissional" oninput="isDigitoNome()">
+                <input class="nome" type="text" id="nome" placeholder="Digite o nome do profissional" oninput="isDigitoNome()">
             </div>
             <div class="parametros">
                 <label for="mes">Mês: </label>
@@ -44,22 +44,18 @@
     </main>
     <section>
         <header>
-            Cabeçalho
-            nome e matricula
-            periodo
+            <div class="img-container">
+                <img src="./assets/brasao.png" class="img" alt="Logo">
+                <h2>Prefeitura Municipal de Itapeva</h2>
+            </div>
+            <p>Matricula: <span id="matricula"></span> Nome: <span id="nome"></span></p>
+            <p>Mês: <span id="mes"></span> Ano: <span id="ano"></span></p>
+            
         </header>
         <div id="registros"></div>
         <footer>
-            <div class="totais">
-                <p>
-                    Total de Dias: <span id="dias"></span>
-                    Total de Registros: <span id="registros"></span>
-                </p>
-            </div>
-            <div class="assinaturas">
-                <hr>
+            <div class="assinaturas">                
                 <p>Assinatura do Profissional</p>
-                <hr>
                 <p> Assinatura do Responsável</p>
             </div>
         </footer>

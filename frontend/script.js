@@ -33,8 +33,13 @@ function pesquisar(event) {
     fetch(`${url}?matricula=${matricula}&mes=${mes}&ano=${ano}`)
         .then(response => response.json())
         .then(regs => {
+            const dias = document.querySelector("#dias")
+            const registros_totais = document.querySelector("#totais-registros")
+
             registros.innerHTML =
-            `<table>
+                `
+            <button id="imprimir" onclick="imprimir()">Imprimir</button>
+            <table>
                 <thead>
                     <tr>
                         <th>Dia da semana</th>
@@ -52,16 +57,26 @@ function pesquisar(event) {
                     ${regs.map(reg => !reg.totais ?
                     `<tr>
                         <td>${reg.dia_semana}</td>
-                        <td>${reg.data}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>${reg.horas_trabalhadas}</td>
+                        <td>${new Date(reg.data.split('-')).toLocaleDateString()}</td>
+                        <td>${reg.horas[0] || '-'}</td>
+                        <td>${reg.horas[1] || '-'}</td>
+                        <td>${reg.horas[2] || '-'}</td>
+                        <td>${reg.horas[3] || '-'}</td>
+                        <td>${reg.horas[4] || '-'}</td>
+                        <td>${reg.horas[5] || '-'}</td>
+                        <td>${reg.horas_trabalhadas || '-'}</td>
                     </tr>`: '').join('')}                    
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="8">Total de Dias</th>
+                        <td>${regs[regs.length - 1].totais.dias_registrados}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="8">Total de Registros:</th>
+                        <td>${regs[regs.length - 1].totais.registros}</td>
+                    </tr>
+                </tfoot>
             </table>`
         })
         .catch(console.error)
@@ -70,7 +85,7 @@ function pesquisar(event) {
 (function getAnos() {
     let anos = []
 
-    for (i=2010; i < new Date().getFullYear(); i++) {
+    for (i = 2010; i <= new Date().getFullYear(); i++) {
         anos.push(i)
     }
 
@@ -78,9 +93,14 @@ function pesquisar(event) {
     selectAno.innerHTML = anos.map(ano => `<option value="${ano}">${ano}</option>`)
 })()
 
-// <td>${reg.horas[0] ? reg.horas[0] : ''}</td>
-// <td>${reg.horas[1] ? reg.horas[1] : ''}</td>
-// <td>${reg.horas[2] ? reg.horas[2] : ''}</td>
-// <td>${reg.horas[3] ? reg.horas[3] : ''}</td>
-// <td>${reg.horas[4] ? reg.horas[4] : ''}</td>
-// <td>${reg.horas[5] ? reg.horas[5] : ''}</td>
+function imprimir() {
+    window.print()
+}
+
+(() => {
+    const selectAno = document.querySelector('#ano')
+    const selectMes = document.querySelector('#mes')
+    const mesAtual = new Date().getMonth() + 11
+    selectAno.options[selectAno.options.length - 2].selected = true
+    selectMes.options[mesAtual].selected = true
+})()
