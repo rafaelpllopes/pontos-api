@@ -1,25 +1,52 @@
-h1{
-    text-transform: uppercase; 
+h1 {
+    text-transform: uppercase;
     text-align: center;
+    font-weight: bolder;
+    font-size: 2.5em;
 }
 
-table{
-    border-collapse: collapse;
-    width: 100%;
-  }
+h2 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.2em;
+}
 
-  table,td, th{
+h2 span {
+    font-weight: bolder;
+}
+
+.registros {
+    margin: auto 0;
+}
+
+table {
+    margin-top: 1.5em;
+    border-collapse: collapse;
+    width: 95%;
+}
+
+tr:nth-child(even) {
+    background: #EEE;
+}
+
+table,
+td,
+th {
     border: 1px solid black;
 }
 
-  th{
-      text-align: center;
-      background-color: #e7e7e7;
-            
-  }
-
-td{
+th {
     text-align: center;
+    background-color: #e7e7e7;
+
+}
+
+td {
+    text-align: center;
+}
+
+td:nth-child(1) {
+    text-align: justify;
 }
 
 
@@ -31,6 +58,29 @@ td{
     padding: 0.2em;
 }
 
+.btn {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0.5em;
+    height: 4em;
+    width: 12em;
+    background-color: #e7e7e7;
+    color: black;
+    border: green 1px solid;
+    border-radius: 10%;
+}
+
+.btn:hover {
+    margin: 0.5em;
+    height: 4em;
+    width: 12em;
+    background-color: green;
+    color: black;
+    border: #e7e7e7 1px solid;
+    border-radius: 10%;
+    opacity: 80%;
+}
+
 .busca {
     display: flex;
     justify-content: center;
@@ -39,44 +89,23 @@ td{
     padding: 0.2em;
 }
 
-button {
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 0.5em;
-    height: 4em;
-    width: 12em;
-    background-color: #e7e7e7 ; color: black;
-    border: green 1px solid;
-    border-radius: 10%;
-}
-
-button:hover {
-    margin: 0.5em;
-    height: 4em;
-    width: 12em;
-    background-color: green ; color: black;
-    border: #e7e7e7 1px solid;
-    border-radius: 10%;
-    opacity: 80%;
-}
-
 label {
     margin-top: 0.3em;
     margin-bottom: 0.3em;
-    margin-right:0.2em;
+    margin-right: 0.2em;
     margin-left: 2em;
-    height:0.2em;   
+    height: 0.2em;
     font-weight: bold;
     font-size: 15px;
     text-align: justify;
 }
 
-.nome{
+.nome {
     width: 50em;
     text-align: justify;
 }
 
-input{
+input {
     height: 2.5em;
     text-align: justify;
 }
@@ -86,11 +115,11 @@ header {
     display: none;
 }
 
-.totais{
+.totais {
     display: none;
 }
 
-hr{
+hr {
     margin: 40px 0;
     width: 500px;
 }
@@ -99,33 +128,56 @@ hr{
     display: none;
 }
 
-#mes {
+#select-mes {
     width: 15em;
     height: 2em;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-#ano {
+#select-ano {
     width: 10em;
     height: 2em;
     text-transform: uppercase;
     font-weight: bold;
 }
 
+#profissionais {
+    left: 30%;
+    position: relative;
+}
 
-@media print{
+#profissionais li {
+    text-align: center;
+    z-index: 2;
+    border: 1px solid black;
+    background-color: #FFF;
+    padding: 1.5em;
+    width: 40em;
+}
+
+#profissionais li:hover {
+    background-color: #EEE;
+}
+
+@media print {
     body {
         width: 100%;
         height: 100%;
     }
 
-    main, h1, #imprimir {
+    main,
+    h1,
+    #imprimir {
         display: none;
     }
 
     header {
         display: contents;
+    }
+
+    header {
+        text-align: center;
     }
 
     .img-container {
@@ -139,11 +191,11 @@ hr{
         width: 15%;
     }
 
-    .busca{
+    .busca {
         display: none;
     }
 
-    .totais{
+    .totais {
         display: block;
         text-align: center;
         margin-top: 1em;
@@ -170,5 +222,5 @@ hr{
         margin-right: 1cm;
         margin-bottom: 1cm;
         margin-top: 1cm;
-     }
+    }
 }

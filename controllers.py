@@ -15,15 +15,15 @@ class ProfissionaisController:
         
     def findall(self):
         dados = self.profissionais.findall_profissionais()
-        return dados if not None else None
+        return dados
     
     def find_profissional_by_matricula(self, matricula):
         dado = self.profissionais.find_profissional_by_matricula(matricula.zfill(20))
-        return dado if not None else None
+        return dado
     
     def find_profissional_by_nome(self, nome):
         dados = self.profissionais.find_profissional_by_nome(nome)
-        return dados if not None else None
+        return dados
     
 class RegistrosController:
     def __init__(self):

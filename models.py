@@ -24,11 +24,11 @@ class ProfissionaisModel:
             Traz profissional pela matricula
             nome e matricula
         """
-        dados = self._db.cursor.execute(f"SELECT DISTINCT UPPER(HE02_ST_MATRICULA)as matricula, HE02_ST_NOME as nome \
+        dados = self._db.cursor.execute(f"SELECT DISTINCT HE02_ST_MATRICULA as matricula, UPPER(HE02_ST_NOME) as nome \
             FROM HE02 WHERE HE02_ST_MATRICULA = '{matricula}'")
                 
         resultado = dados.fetchonemap()
-        profissional = { "nome": resultado['NOME'].upper(), "matricula": resultado['MATRICULA'] }
+        profissional = { "nome": resultado['NOME'], "matricula": resultado['MATRICULA'] }
                 
         return profissional
     

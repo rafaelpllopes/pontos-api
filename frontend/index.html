@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/estilos.css">
     <title>Consulta Pontos</title>
 </head>
 <body>
@@ -12,13 +13,15 @@
         <form>
             <div class="parametros">
                 <label for="matricula">Matricula: </label>
-                <input type="text" placeholder="00000" id="matricula" oninput="isDigitoMatricula()">
-                <label for="nome">Nome: </label>
-                <input class="nome" type="text" id="nome" placeholder="Digite o nome do profissional" oninput="isDigitoNome()">
+                <input type="text" placeholder="00000" id="input-matricula" oninput="isDigitoMatricula()" onblur="buscarMatricula()">
+                <label for="nome">Nome: 
+                    <input class="nome" type="text" id="input-nome" placeholder="Digite o nome do profissional" oninput="isDigitoNome()">
+                </label>
             </div>
+            <div id="profissionais"></div>
             <div class="parametros">
-                <label for="mes">Mês: </label>
-                <select id="mes">
+                <label for="select-mes">Mês: </label>
+                <select id="select-mes">
                     <option value="01">Janeiro</option>
                     <option value="02">Fevereiro</option>
                     <option value="03">Março</option>
@@ -32,13 +35,14 @@
                     <option value="11">Novembro</option>
                     <option value="12">Dezembro</option>
                 </select>
-                <label for="ano">Ano: </label>
-                <select id="ano"></select>
+                <label for="select-ano">Ano: </label>
+                <select id="select-ano"></select>
             </div>
             
             <div class="busca">
-                <button onclick="pesquisar(event)">Pesquisar</button>
-                <button style="display: none;" onclick="pesquisarLocal()">Consultar por local</button>
+                <button class="btn" onclick="pesquisar(event)">Pesquisar</button>
+                <button class="btn" onclick="limpar(event)">Limpar</button>
+                <button class="btn" style="display: none;" onclick="pesquisarLocal()">Consultar por local</button>
             </div>
         </form>
     </main>
@@ -46,9 +50,14 @@
         <header>
             <div class="img-container">
                 <img src="./assets/brasao.png" class="img" alt="Logo">
-                <h2>Prefeitura Municipal de Itapeva</h2>
+                <h2>
+                    <span>Prefeitura Municipal de Itapeva</span>
+                    <br>
+                    Secretaria Municipal de Saúde
+                </h2>
             </div>
-            <p>Matricula: <span id="matricula"></span> Nome: <span id="nome"></span></p>
+            <h4 id=nome></h4>
+            <p>Matricula: <span id="matricula"></span></p>
             <p>Mês: <span id="mes"></span> Ano: <span id="ano"></span></p>
             
         </header>

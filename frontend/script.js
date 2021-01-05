@@ -1,44 +1,78 @@
 let registros = []
+
+const inputNome = document.querySelector("#input-nome")
+const inputMatricula = document.querySelector("#input-matricula")
+const selectAno = document.querySelector("#select-ano")
+const selectMes = document.querySelector("#select-mes")
+const nome = document.querySelector("#nome")
+const matricula = document.querySelector("#matricula")
+const mes = document.querySelector("#mes")
+const ano = document.querySelector("#ano")
+const fielRegistros = document.querySelector('#registros')
+const profissionais = document.querySelector('#profissionais')
+
+httpHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Request-Method': '*',
+    'Access-Control-Request-Headers': '*',
+    'Access-Control-Allow-Headers': '*'
+}
+
+const headers = new Headers(httpHeaders)
+
+
 function isDigitoMatricula() {
-    const matricula = document.querySelector("#matricula")
-    const nome = document.querySelector("#nome")
-    if (matricula.value !== '') {
-        nome.setAttribute('readonly', true)
+    if (inputMatricula.value !== '') {
+        inputNome.setAttribute('readonly', true)
     } else {
-        nome.removeAttribute('readonly')
+        inputNome.removeAttribute('readonly')
     }
 }
 
 function isDigitoNome() {
-    const matricula = document.querySelector("#matricula")
-    const nome = document.querySelector("#nome")
-    if (nome.value !== '') {
-        matricula.setAttribute('readonly', true)
+    if (inputNome.value !== '') {
+        inputMatricula.setAttribute('readonly', true)
+
+        if (inputNome.value.length > 3) {
+
+            mes.textContent = selectMes.value
+            ano.textContent = selectAno.value
+
+            const url = `http://192.168.50.21:4000/profissionais/nome/${inputNome.value}`
+
+            fetch(url, { headers: headers })
+                .then(res => res.json())
+                .then(pro => {
+                    profissionais.innerHTML = pro.map(p => `<ul><li onclick="selectProfissionais(${p.matricula})">${p.nome}</li></ul>`).join('')
+                })
+        } else {
+            profissionais.innerHTML = ''
+        }
+
     } else {
-        matricula.removeAttribute('readonly')
+        inputMatricula.removeAttribute('readonly')
     }
+}
+
+function selectProfissionais(matricula) {
+    trazMatricula(matricula)
+    profissionais.innerHTML = ''
 }
 
 function pesquisar(event) {
     event.preventDefault()
-    const url = 'http://localhost:4000/registros'
+    const url = 'http://192.168.50.21:4000/registros'
 
-    const nome = document.querySelector("#nome").value
-    const matricula = document.querySelector("#matricula").value
-    const mes = document.querySelector("#mes").value
-    const ano = document.querySelector("#ano").value
+    mes.textContent = selectMes.value
+    ano.textContent = selectAno.value
+    matricula.textContent = parseInt(inputMatricula.value)
+    nome.textContent = inputNome.value
 
-    const registros = document.querySelector('#registros')
-
-    fetch(`${url}?matricula=${matricula}&mes=${mes}&ano=${ano}`)
+    fetch(`${url}?matricula=${inputMatricula.value}&mes=${selectMes.value}&ano=${selectAno.value}`, { headers: headers })
         .then(response => response.json())
         .then(regs => {
-            const dias = document.querySelector("#dias")
-            const registros_totais = document.querySelector("#totais-registros")
-
-            registros.innerHTML =
-                `
-            <button id="imprimir" onclick="imprimir()">Imprimir</button>
+            fielRegistros.innerHTML = `
+            <button class="btn" id="imprimir" onclick="imprimir()">Imprimir</button>
             <table>
                 <thead>
                     <tr>
@@ -55,7 +89,7 @@ function pesquisar(event) {
                 </thead>
                 <tbody>
                     ${regs.map(reg => !reg.totais ?
-                    `<tr>
+                `<tr>
                         <td>${reg.dia_semana}</td>
                         <td>${new Date(reg.data.split('-')).toLocaleDateString()}</td>
                         <td>${reg.horas[0] || '-'}</td>
@@ -79,17 +113,13 @@ function pesquisar(event) {
                 </tfoot>
             </table>`
         })
-        .catch(console.error)
 }
 
-(function getAnos() {
+(() => {
     let anos = []
-
     for (i = 2010; i <= new Date().getFullYear(); i++) {
         anos.push(i)
     }
-
-    const selectAno = document.querySelector('#ano')
     selectAno.innerHTML = anos.map(ano => `<option value="${ano}">${ano}</option>`)
 })()
 
@@ -98,9 +128,45 @@ function imprimir() {
 }
 
 (() => {
-    const selectAno = document.querySelector('#ano')
-    const selectMes = document.querySelector('#mes')
     const mesAtual = new Date().getMonth() + 11
     selectAno.options[selectAno.options.length - 2].selected = true
     selectMes.options[mesAtual].selected = true
 })()
+
+function buscarMatricula() {
+    mes.textContent = selectMes.value
+    ano.textContent = selectAno.value
+
+    if (inputMatricula) {
+        trazMatricula(inputMatricula.value)
+    }
+
+}
+
+function limpar(event) {
+    event.preventDefault()
+    fielRegistros.innerHTML = ''
+    inputMatricula.value = ''
+    inputNome.value = ''
+    nome.textContent = ''
+    matricula.textContent = ''
+    mes.textContent = ''
+    ano.textContent = ''
+    inputNome.removeAttribute('readonly')
+    inputMatricula.removeAttribute('readonly')
+    profissionais.innerHTML = ''
+}
+
+function trazMatricula(matricula) {
+
+    const url = `http://192.168.50.21:4000/profissionais/matricula/${matricula}`
+
+    fetch(url, { headers: headers })
+        .then(res => res.json())
+        .then(pro => {
+            inputNome.value = pro.nome
+            inputMatricula.value = pro.matricula
+            nome.textContent = pro.nome
+            matricula.textContent = parseInt(pro.matricula)
+        })
+}
