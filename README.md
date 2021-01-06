@@ -1,5 +1,5 @@
-# pontos-api
-Api para comunicação com banco de dados firebird
+# Pontos API
+API para comunicação com banco de dados firebird
 
 ## Ambiente
 
@@ -11,7 +11,7 @@ Api para comunicação com banco de dados firebird
 ### Libs
 ```sudo apt install libfbclient2```
 
-### criar arquivo db_config.json
+### Criar arquivo db_config.json
 ```{ ```
     ```"host": "",```
     ```"user": "",```
