@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/estilos.css">
     <title>Consulta Pontos</title>
 </head>
-<body>
+<body class="container-fluid">
     <h1>Consulta registros de ponto</h1>
-    <main>
+    <main class="container">
         <form>
-            <div class="parametros">
-                <label for="matricula">Matricula: </label>
-                <input type="text" placeholder="00000" id="input-matricula" oninput="isDigitoMatricula()" onblur="buscarMatricula()">
-                <label for="nome">Nome: 
-                    <input class="nome" type="text" id="input-nome" placeholder="Digite o nome do profissional" oninput="isDigitoNome()">
-                </label>
+            <div class="row row-cols-2">
+                <div class="col-3">
+                    <label for="matricula" class="form-label">Matricula: </label>
+                    <input class="form-control form-control-lg" type="text" placeholder="00000" id="input-matricula" oninput="isDigitoMatricula()" onblur="buscarMatricula()" readonly required autocomplete="off">
+                </div>
+                <div class="col-9">
+                    <label for="nome" class="form-label">Nome: </label>
+                    <input class="form-control form-control-lg" type="text" id="input-nome" placeholder="Digite o nome do profissional" oninput="isDigitoNome()" required autocomplete="off">
+                    <div id="profissionais"></div>
+                </div>
             </div>
-            <div id="profissionais"></div>
-            <div class="parametros">
+            <div>
                 <label for="select-mes">Mês: </label>
-                <select id="select-mes">
+                <select id="select-mes" class="form-select" required>
                     <option value="01">Janeiro</option>
                     <option value="02">Fevereiro</option>
                     <option value="03">Março</option>
@@ -36,12 +40,12 @@
                     <option value="12">Dezembro</option>
                 </select>
                 <label for="select-ano">Ano: </label>
-                <select id="select-ano"></select>
+                <select id="select-ano" class="form-select" required></select>
             </div>
             
             <div class="busca">
-                <button class="btn" onclick="pesquisar(event)">Pesquisar</button>
-                <button class="btn" onclick="limpar(event)">Limpar</button>
+                <button class="btn btn-info btn-lg" onclick="pesquisar(event)">Pesquisar</button>
+                <button class="btn btn-warning btn-lg" onclick="limpar(event)">Limpar</button>
                 <button class="btn" style="display: none;" onclick="pesquisarLocal()">Consultar por local</button>
             </div>
         </form>
@@ -50,25 +54,25 @@
         <header>
             <div class="img-container">
                 <img src="./assets/brasao.png" class="img" alt="Logo">
-                <h2>
-                    <span>Prefeitura Municipal de Itapeva</span>
+                <h3>
+                    Prefeitura Municipal de Itapeva
                     <br>
-                    Secretaria Municipal de Saúde
-                </h2>
+                    <span>Secretaria Municipal de Saúde</span>
+                </h3>
             </div>
             <h4 id=nome></h4>
             <p>Matricula: <span id="matricula"></span></p>
-            <p>Mês: <span id="mes"></span> Ano: <span id="ano"></span></p>
-            
+            <p>Mês: <span id="mes"></span> Ano: <span id="ano"></span></p>    
         </header>
         <div id="registros"></div>
         <footer>
             <div class="assinaturas">                
                 <p>Assinatura do Profissional</p>
-                <p> Assinatura do Responsável</p>
+                <p>Assinatura do Responsável</p>
             </div>
         </footer>
     </section>
-        <script src="script.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/app.js"></script>
 </body>
 </html>

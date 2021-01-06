@@ -45,14 +45,12 @@ function isDigitoNome() {
             fetch(url, { headers: headers })
                 .then(res => res.json())
                 .then(pro => {
-                    profissionais.innerHTML = pro.map(p => `<ul><li onclick="selectProfissionais(${parseInt(p.matricula)})">${parseInt(p.matricula)} - ${p.nome}</li></ul>`).join('')
+                    profissionais.innerHTML = pro.map(p => `<ul class="list-group"><li class="list-group-item" onclick="selectProfissionais(${parseInt(p.matricula)})">${parseInt(p.matricula)} - ${p.nome}</li></ul>`).join('')
                 })
         } else {
             profissionais.innerHTML = ''
         }
 
-    } else {
-        inputMatricula.removeAttribute('readonly')
     }
 }
 
@@ -74,19 +72,19 @@ function pesquisar(event) {
         .then(response => response.json())
         .then(regs => {
             fielRegistros.innerHTML = `
-            <button class="btn" id="imprimir" onclick="imprimir()">Imprimir</button>
-            <table>
+            <button class="btn btn-success btn-lg" id="imprimir" onclick="imprimir()">Imprimir</button>
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Dia da semana</th>
-                        <th>Data</th>
-                        <th>Entrada 1</th>
-                        <th>Saida 1</th>
-                        <th>Entrada 2</th>
-                        <th>Saida 2</th>
-                        <th>Entrada 3</th>
-                        <th>Saida 3</th>
-                        <th>Horas Trabalhadas</th>
+                        <th scope="col">Dia da semana</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Entrada 1</th>
+                        <th scope="col">Saida 1</th>
+                        <th scope="col">Entrada 2</th>
+                        <th scope="col">Saida 2</th>
+                        <th scope="col">Entrada 3</th>
+                        <th scope="col">Saida 3</th>
+                        <th scope="col">Horas Trabalhadas</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -155,7 +153,7 @@ function limpar(event) {
     mes.textContent = ''
     ano.textContent = ''
     inputNome.removeAttribute('readonly')
-    inputMatricula.removeAttribute('readonly')
+    // inputMatricula.removeAttribute('readonly')
     profissionais.innerHTML = ''
 }
 

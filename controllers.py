@@ -51,7 +51,7 @@ class RegistrosController:
         DIAS = ['Segunda-feira',
             'Terça-feira',
             'Quarta-feira',
-            'Quinta-Feira',
+            'Quinta-feira',
             'Sexta-feira',
             'Sábado',
             'Domingo']
