@@ -20,6 +20,8 @@ httpHeaders = {
 
 const headers = new Headers(httpHeaders)
 
+url_base = "http://192.168.50.21:4000"
+
 
 function isDigitoMatricula() {
     if (inputMatricula.value !== '') {
@@ -38,12 +40,12 @@ function isDigitoNome() {
             mes.textContent = selectMes.value
             ano.textContent = selectAno.value
 
-            const url = `http://192.168.50.21:4000/profissionais/nome/${inputNome.value}`
+            const url = `${url_base}/profissionais/nome?nome=${inputNome.value}`
 
             fetch(url, { headers: headers })
                 .then(res => res.json())
                 .then(pro => {
-                    profissionais.innerHTML = pro.map(p => `<ul><li onclick="selectProfissionais(${p.matricula})">${p.nome}</li></ul>`).join('')
+                    profissionais.innerHTML = pro.map(p => `<ul><li onclick="selectProfissionais(${parseInt(p.matricula)})">${parseInt(p.matricula)} - ${p.nome}</li></ul>`).join('')
                 })
         } else {
             profissionais.innerHTML = ''
@@ -61,7 +63,7 @@ function selectProfissionais(matricula) {
 
 function pesquisar(event) {
     event.preventDefault()
-    const url = 'http://192.168.50.21:4000/registros'
+    const url = `${url_base}/registros`
 
     mes.textContent = selectMes.value
     ano.textContent = selectAno.value
@@ -158,8 +160,7 @@ function limpar(event) {
 }
 
 function trazMatricula(matricula) {
-
-    const url = `http://192.168.50.21:4000/profissionais/matricula/${matricula}`
+    const url = `${url_base}/profissionais/matricula/${matricula}`
 
     fetch(url, { headers: headers })
         .then(res => res.json())

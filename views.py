@@ -18,16 +18,20 @@ def profissionais():
 
 @app.route('/profissionais/matricula/<matricula>', methods=['GET', 'OPTIONS'])
 @cross_origin()
-def profissional_por_matricula(matricula):
+def profissional_por_matricula(matricula):   
     if not matricula:
-        return jsonify({ "msg": "matricula é necessaria" }), 404  
+        return jsonify({ "msg": "matricula é necessaria" }), 404
+    
     return jsonify(profissionais_controller.find_profissional_by_matricula(str(matricula).zfill(20))), 200
 
-@app.route('/profissionais/nome/<nome>', methods=['GET', 'OPTIONS'])
+@app.route('/profissionais/nome', methods=['GET', 'OPTIONS'])
 @cross_origin()
-def profissional_por_nome(nome):
-    if not nome:
-        return jsonify({ "msg": "nome é necessario" }), 404
+def profissional_por_nome():
+    
+    if 'nome' not in request.args:
+        return jsonify({ "msg": "Erro: é necessario o nome" }), 404
+
+    nome = request.args['nome']
     
     return jsonify(profissionais_controller.find_profissional_by_nome(nome)), 200
 
