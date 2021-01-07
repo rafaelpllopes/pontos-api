@@ -98,7 +98,9 @@ class RegistrosController:
                 saida_3 = datetime.strptime(reg['horas'][5], '%H:%M')
                 total_horas = (saida_1 - entrada_1) + (saida_2 - entrada_2) + (saida_3 - entrada_3)
             
-            reg['horas_trabalhadas'] = str(total_horas)
+            total_horas = str(total_horas).split(":")
+            reg['horas_trabalhadas'] = f"{total_horas[0].zfill(2)}:{total_horas[1]}" if len(total_horas) > 1 else '-'
+            
         
         totais_registros = 0
         dias_registrados = 0
