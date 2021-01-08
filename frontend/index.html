@@ -15,12 +15,12 @@
     <main class="container">
         <form>
             <div class="row row-cols-2">
-                <div class="col-sm-4">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-auto">
                     <label for="matricula" class="form-label">Matricula: </label>
                     <input class="form-control form-control-lg" type="text" placeholder="00000" id="input-matricula"
                         oninput="isDigitoMatricula()" onblur="buscarMatricula()" readonly required autocomplete="off">
                 </div>
-                <div class="col-sm-8">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-auto">
                     <label for="nome" class="form-label">Nome: </label>
                     <input class="form-control form-control-lg" type="text" id="input-nome"
                         placeholder="Digite o nome do profissional" oninput="isDigitoNome()" required
@@ -47,10 +47,10 @@
                 <label for="select-ano">Ano: </label>
                 <select id="select-ano" class="form-select" required></select>
             </div>
-
-            <div class="busca">
-                <button class="btn btn-info btn-lg" onclick="pesquisar(event)">Pesquisar</button>
-                <button class="btn btn-warning btn-lg" onclick="limpar(event)">Limpar</button>
+            
+            <div class="busca position-relative row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <button class="btn btn-info btn-lg col-lg-5 col-md-5 col-sm-12 col-auto" onclick="pesquisar(event)">Pesquisar</button>
+                <button class="btn btn-warning btn-lg col-lg-5 col-md-5 col-sm-12 col-auto" onclick="limpar(event)">Limpar</button>
                 <button class="btn" style="display: none;" onclick="pesquisarLocal()">Consultar por local</button>
             </div>
         </form>
@@ -77,7 +77,7 @@
             </div>
         </footer>
     </section>
-    <footer class="blockquote-footer fixed-bottom" >2021 &copy; Rafael Pereira de Lacerda Lopes
+    <footer class="blockquote-footer fixed-bottom position-fixed" >2021 &copy; Rafael Pereira de Lacerda Lopes
         <cite title="GitHub">
                 <a href="https://github.com/rafaelpllopes/pontos-api" target="blank">
                     GitHub
