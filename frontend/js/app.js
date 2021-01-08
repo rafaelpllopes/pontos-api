@@ -57,6 +57,7 @@ function isDigitoNome() {
 function selectProfissionais(matricula) {
     trazMatricula(matricula)
     profissionais.innerHTML = ''
+    fielRegistros.innerHTML = ''
 }
 
 function pesquisar(event) {
