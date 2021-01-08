@@ -3,6 +3,7 @@ h1 {
     text-align: center;
     padding: 2em;
 }
+
 .busca {
     margin: 0.5em;
     text-align: center;
@@ -24,10 +25,24 @@ header {
     display: none;
 }
 
+#profissionais ul li:hover {
+    background-color: lightgray;
+    border-bottom: solid black 1px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+}
+
 @media print {
+
     main,
     h1,
-    #imprimir {
+    #imprimir,
+    footer {
         display: none;
     }
 
@@ -55,7 +70,7 @@ header {
     }
 
     .busca {
-       display: none;       
+        display: none;
     }
 
     table {
@@ -69,19 +84,11 @@ header {
     tfoot,
     thead,
     tr,
-    th, 
+    th,
     td {
         padding: 0;
         margin: 0;
     }
-
-    /* .totais {
-        display: block;
-        text-align: center;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        padding: 0.2em;
-    } */
 
     .assinaturas {
         display: flex;
