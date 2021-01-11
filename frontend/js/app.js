@@ -26,6 +26,12 @@ url_base = "http://192.168.50.21:4000"
 function isDigitoMatricula() {
     if (inputMatricula.value !== '') {
         inputNome.setAttribute('readonly', true)
+
+        if (profissionais.innerHTML != '' || fielRegistros.innerHTML != '' || inputMatricula.value != '') {
+            profissionais.innerHTML != ''
+            fielRegistros.innerHTML = ''
+            inputNome.value = ''
+        }
     } else {
         inputNome.removeAttribute('readonly')
     }
@@ -34,6 +40,11 @@ function isDigitoMatricula() {
 function isDigitoNome() {
     if (inputNome.value !== '') {
         inputMatricula.setAttribute('readonly', true)
+
+        if (fielRegistros.innerHTML != '') {
+            inputMatricula.value = ''
+            fielRegistros.innerHTML = ''
+        }
 
         if (inputNome.value.length > 3) {
 
