@@ -73,7 +73,9 @@ class RegistrosController:
                    reg['horas'].append(horas)
                else:
                    continue       
-
+        
+        total_horas_trabalhadas = []
+              
         for reg in registros:
             total_horas = 0
                                             
@@ -97,20 +99,25 @@ class RegistrosController:
                 entrada_3 = datetime.strptime(reg['horas'][4], '%H:%M')
                 saida_3 = datetime.strptime(reg['horas'][5], '%H:%M')
                 total_horas = (saida_1 - entrada_1) + (saida_2 - entrada_2) + (saida_3 - entrada_3)
-            
-            total_horas = str(total_horas).split(":")
+                
+            if total_horas:
+                total_horas_trabalhadas.append(total_horas)
+                
+            total_horas = str(total_horas).split(":")                        
             reg['horas_trabalhadas'] = f"{total_horas[0].zfill(2)}:{total_horas[1]}" if len(total_horas) > 1 else '-'
             
         
         totais_registros = 0
         dias_registrados = 0
-
+        
+        total_horas_trabalhadas = reduce(lambda a, b: a + b, total_horas_trabalhadas)
+        
         for reg in registros:
             if len(reg['horas']) > 0:
                 totais_registros += len(reg['horas'])
                 dias_registrados += 1
         
-        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados } })
+        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados, "horas": str(int(total_horas_trabalhadas.total_seconds())/3600).replace('.', ':') } })
             
         return registros
     

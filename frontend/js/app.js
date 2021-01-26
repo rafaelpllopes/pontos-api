@@ -122,6 +122,10 @@ function pesquisar(event) {
                         <th colspan="8">Total de Registros:</th>
                         <td>${regs[regs.length - 1].totais.registros}</td>
                     </tr>
+                    <tr>
+                        <th colspan="8">Total Horas Trabalhadas:</th>
+                        <td>${regs[regs.length - 1].totais.horas}</td>
+                    </tr>
                 </tfoot>
             </table>`
         })
