@@ -111,13 +111,14 @@ class RegistrosController:
         dias_registrados = 0
         
         total_horas_trabalhadas = reduce(lambda a, b: a + b, total_horas_trabalhadas)
+        total_horas_trabalhadas = str(round(int(total_horas_trabalhadas.total_seconds())/3600, 2))
         
         for reg in registros:
             if len(reg['horas']) > 0:
                 totais_registros += len(reg['horas'])
                 dias_registrados += 1
         
-        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados, "horas": str(int(total_horas_trabalhadas.total_seconds())/3600).replace('.', ':') } })
+        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados, "horas": total_horas_trabalhadas } })
             
         return registros
     
