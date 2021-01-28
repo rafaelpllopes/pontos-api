@@ -47,6 +47,14 @@ class RegistrosController:
         else:
             return "30" 
     
+    def calc_horas_trabalhadas(self, total_horas):
+        soma_horas_trabalhadas_segundos = reduce(lambda a, b: a + b, total_horas)
+        resultado_horas = str(round(int(soma_horas_trabalhadas_segundos.total_seconds())/3600, 2)).split('.')
+        horas_trabalhadas = resultado_horas[0]
+        minutos_trabalhados = int(round(float(f"0.{resultado_horas[1]}"), 2) * 60)
+        
+        return f"{horas_trabalhadas}:{minutos_trabalhados}"
+    
     def find_registros_by_matricula_and_periodo(self, matricula, mes, ano):
         DIAS = ['Segunda-feira',
             'Terça-feira',
@@ -109,16 +117,14 @@ class RegistrosController:
         
         totais_registros = 0
         dias_registrados = 0
-        
-        total_horas_trabalhadas = reduce(lambda a, b: a + b, total_horas_trabalhadas)
-        total_horas_trabalhadas = str(round(int(total_horas_trabalhadas.total_seconds())/3600, 2))
-        
+        horas_trabalhadas = self.calc_horas_trabalhadas(total_horas_trabalhadas)
+                        
         for reg in registros:
             if len(reg['horas']) > 0:
                 totais_registros += len(reg['horas'])
                 dias_registrados += 1
         
-        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados, "horas": total_horas_trabalhadas } })
+        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados, "horas": horas_trabalhadas } })
             
         return registros
     
