@@ -73,6 +73,7 @@ function selectProfissionais(matricula) {
 
 function pesquisar(event) {
     event.preventDefault()
+    fielRegistros.innerHTML = ''
     const url = `${url_base}/registros`
 
     mes.textContent = selectMes.value
@@ -83,6 +84,18 @@ function pesquisar(event) {
     fetch(`${url}?matricula=${inputMatricula.value}&mes=${selectMes.value}&ano=${selectAno.value}`, { headers: headers })
         .then(response => response.json())
         .then(regs => {
+
+            if (!regs) {
+                fielRegistros.innerHTML = `
+                    <div id="aviso" class="alert alert-primary" role="alert">
+                        Não foi encontrado registros para o período informado
+                    </div>
+                `
+                setTimeout(() => {
+                    fielRegistros.innerHTML = ""
+                }, 5000)
+            }
+
             fielRegistros.innerHTML = `
             <button class="btn btn-success btn-lg" id="imprimir" onclick="imprimir()">Imprimir</button>
             <table class="table table-striped">

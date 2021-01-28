@@ -38,7 +38,7 @@ class RegistrosController:
         meses_31_dias = ["01", "03", "05", "07", "08", "10", "12"]
         
         if mes == "02":
-            if ano % 4 == 0:
+            if int(ano) % 4 == 0:
                 return "29"
             else:
                 return "28"
@@ -68,6 +68,9 @@ class RegistrosController:
         ultimo_dia = self._ultimo_dia_mes(ano, mes)
         
         resposta = self.registros.find_registros_by_matricula_and_periodo(matricula, mes, ano, ultimo_dia)
+        
+        if not resposta:
+            return
         
         for dia in range(int(ultimo_dia)):
             dia += 1

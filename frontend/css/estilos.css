@@ -40,6 +40,12 @@ footer {
     text-align: center;
 }
 
+#aviso {
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 @media print {
 
     main,
