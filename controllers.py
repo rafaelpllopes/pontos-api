@@ -51,7 +51,7 @@ class RegistrosController:
         soma_horas_trabalhadas_segundos = reduce(lambda a, b: a + b, total_horas)
         resultado_horas = str(round(int(soma_horas_trabalhadas_segundos.total_seconds())/3600, 2)).split('.')
         horas_trabalhadas = resultado_horas[0]
-        minutos_trabalhados = int(round(float(f"0.{resultado_horas[1]}"), 2) * 60)
+        minutos_trabalhados = int(round(float(f"0.{resultado_horas[1]}") * 60, 0))
         
         return f"{horas_trabalhadas}:{minutos_trabalhados}"
     
