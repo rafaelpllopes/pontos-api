@@ -158,7 +158,7 @@ function imprimir() {
 
 (() => {
     const mesAtual = new Date().getMonth() + 11
-    selectAno.options[selectAno.options.length - 2].selected = true
+    selectAno.options[selectAno.options.length - 1].selected = true
     selectMes.options[mesAtual].selected = true
 })()
 

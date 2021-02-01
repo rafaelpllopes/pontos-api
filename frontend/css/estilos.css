@@ -67,6 +67,10 @@ footer {
         line-height: 0;
     }
 
+    header span {
+        font-size: 0.8em;
+    }
+
     .img-container {
         display: flex;
         justify-content: center;
