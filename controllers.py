@@ -119,15 +119,15 @@ class RegistrosController:
             
         
         totais_registros = 0
-        dias_registrados = 0
-        horas_trabalhadas = self.calc_horas_trabalhadas(total_horas_trabalhadas)
+        dias_registrados = 0    
+        horas_trabalhadas = self.calc_horas_trabalhadas(total_horas_trabalhadas) if total_horas_trabalhadas else "-"
                         
         for reg in registros:
             if len(reg['horas']) > 0:
                 totais_registros += len(reg['horas'])
                 dias_registrados += 1
         
-        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados, "horas": horas_trabalhadas } })
+        registros.append({ "totais": { "registros": totais_registros, "dias_registrados": dias_registrados, "horas": horas_trabalhadas} })
             
         return registros
     
