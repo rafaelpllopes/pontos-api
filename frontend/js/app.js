@@ -157,10 +157,11 @@ function imprimir() {
 }
 
 (() => {
-    const mesAtual = new Date().getMonth() + 11
-    let obtemAno = mesAtual == 11 ? 2 : 1
+    const mesAtual = new Date().getMonth()
+    let obtemAno = mesAtual == 0 ? 2 : 1
     selectAno.options[selectAno.options.length - obtemAno].selected = true
-    selectMes.options[mesAtual].selected = true
+    let obtemMes = mesAtual == 0 ? 11 : mesAtual - 1
+    selectMes.options[obtemMes].selected = true
 })()
 
 function buscarMatricula() {
